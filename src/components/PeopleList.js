@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Table, ButtonGroup, Button } from "react-bootstrap";
 
-class PeopleList extends Component {
+var PersonStore = require('../stores/personStore');
+
+class PeopleList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,6 +13,18 @@ class PeopleList extends Component {
         { id: 3, name: "Tyrion Lanister" },
       ],
     };
+
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentWillMount() {
+    console.log("PeopleList: componentWillMount");
+    PersonStore.addChangeListener(this._onChange);
+  }
+
+  _onChange() {
+    console.log('PeopleList: something changed in PersonStore');
+    this.setState({persons: PersonStore.getAllPeople()});
   }
 
   render() {

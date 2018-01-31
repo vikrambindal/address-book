@@ -6,7 +6,7 @@ var AddPeopleActions = {
     createPerson: function(person) {
         person = { id: 10, name: "Test10", number: "3424242"};
 
-        console.log('Dispatching action for person create ' + person);
+        console.log('Dispatching action for person create ' + JSON.stringify(person));
 
         Dispatcher.dispatch({
             actionType: ActionTypes.CREATE_PERSON,

@@ -39,7 +39,7 @@ Dispatcher.register(function(action){
     //Get called whenever any action is dispatched
     switch(action.actionType) {
         case ActionTypes.CREATE_PERSON:
-            console.log('PersonStore handling ' + action.actionType + ' , data' + action.data);
+            console.log('PersonStore handling ' + action.actionType + ' , data' + JSON.stringify(action.data));
             _persons.push(action.data);
             PersonStore.emitChange();
             break;
