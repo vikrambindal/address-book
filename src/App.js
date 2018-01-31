@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import PeopleList from "./components/PeopleList";
 import { Grid, Navbar, Jumbotron } from 'react-bootstrap';
+import AddPeople from "./components/AddPeople";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           </Grid>
         </Navbar>
         <Jumbotron/>
+        <AddPeople/>
         <PeopleList/>
       </div>
     );
