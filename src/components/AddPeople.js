@@ -1,24 +1,26 @@
-import React, {Component} from 'react';
-import { Label, Button } from 'react-bootstrap';
-var AddPersonAcion = require("../actions/addPeopleAction");
+import React from 'react';
+var PersonAction = require("../actions/peopleAction");
 
 class AddPeople extends React.Component {
 
     savePerson(event) {
         event.preventDefault(); 
-        AddPersonAcion.createPerson({contact:30, name: 'Vikram'});
+        
+        var personName = document.getElementById('personNameTxt').value;
+        var contact = document.getElementById('personContactTxt').value;
+        PersonAction.createPerson({contact: contact, name: personName});
     }
 
     render() { 
         return (  
             <div className="container">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label for="personName">Name</label>
+                <form className="form-inline">
+                    <div className="form-group">
+                        <label>Name</label>
                         <input type="text" className="form-control-plaintext" id="personNameTxt"/>
                     </div>
-                    <div class="form-group">
-                        <label for="personContact">Contact</label>
+                    <div className="form-group">
+                        <label>Contact</label>
                         <input type="text" className="form-control" id="personContactTxt"/>
                     </div>
                     <button type="submit" className="btn btn-primary mb-2" onClick={this.savePerson}>Add</button>

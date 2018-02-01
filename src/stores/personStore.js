@@ -6,6 +6,7 @@ var _ = require('lodash');
 
 var CHANGE_EVENT = "change";
 
+
 var _persons = [];
 
 var PersonStore = assign({}, EventEmitter.prototype, {
@@ -41,6 +42,11 @@ Dispatcher.register(function(action){
         case ActionTypes.CREATE_PERSON:
             console.log('PersonStore handling ' + action.actionType + ' , data' + JSON.stringify(action.data));
             _persons.push(action.data);
+            PersonStore.emitChange();
+            break;
+        case ActionTypes.DELETE_PERSON:
+            console.log('PersonStore handling ' + action.actionType + ' , data' + JSON.stringify(action.data));
+            _persons.splice( _persons.indexOf(action.data), 1);
             PersonStore.emitChange();
             break;
         default:

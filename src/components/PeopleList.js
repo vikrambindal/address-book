@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Table, ButtonGroup, Button } from "react-bootstrap";
+import React from "react";
+import {Table, ButtonGroup } from "react-bootstrap";
 
 var PersonStore = require('../stores/personStore');
+var PersonAction = require('../actions/peopleAction');
 
 class PeopleList extends React.Component {
   constructor(props) {
@@ -28,10 +29,16 @@ class PeopleList extends React.Component {
     this.setState({persons: PersonStore.getAllPeople()});
   }
 
+  deletePerson(contactNumber) {
+    console.log('Peopleist: deletePerson' + contactNumber);
+    var person = PersonStore.getPersonById(contactNumber);
+    PersonAction.deletePerson(person);
+  }
+
   render() {
 
     var contentDisplay = null;
-    if (!this.state.hasOwnProperty('persons') || this.state.persons.length == 0 ){
+    if (!this.state.hasOwnProperty('persons') || this.state.persons.length === 0 ){
         contentDisplay =  <p>You currently do not have any contacts</p>;
     } else {
         contentDisplay =  <Table striped bordered condensed hover>
@@ -44,13 +51,13 @@ class PeopleList extends React.Component {
                             </thead>
                             <tbody>
                               {this.state.persons.map(person => (
-                                <tr>
+                                <tr key={person.contact}>
                                   <td>{person.contact}</td>
                                   <td>{person.name}</td>
                                   <td>
                                     <ButtonGroup bsSize="small">
-                                      <Button>Delete</Button>
-                                      <Button>Edit</Button>
+                                      <button onClick={this.deletePerson.bind(this, person.contact)}>Delete</button>
+                                      <button>Edit</button>
                                     </ButtonGroup>
                                   </td>
                                 </tr>
