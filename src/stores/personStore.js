@@ -30,7 +30,7 @@ var PersonStore = assign({}, EventEmitter.prototype, {
         },
         
         getPersonById(id) {
-            return _.find(_persons, {id: id});
+            return _.find(_persons, {contact: id});
         }
 });
 

@@ -4,7 +4,7 @@ var ActionTypes = require("../constants/actionTypes");
 var AddPeopleActions = {
 
     createPerson: function(person) {
-        person = { id: 10, name: "Test10", number: "3424242"};
+        person = { contact: 10, name: "Test10"};
 
         console.log('Dispatching action for person create ' + JSON.stringify(person));
 

@@ -6,17 +6,23 @@ class AddPeople extends React.Component {
 
     savePerson(event) {
         event.preventDefault(); 
-        AddPersonAcion.createPerson({id:30, name: 'Vikram'});
+        AddPersonAcion.createPerson({contact:30, name: 'Vikram'});
     }
 
     render() { 
         return (  
             <div className="container">
-                <Label>Name</Label>
-                <input type="text"/>
-                <Label>Contact</Label>
-                <input type="text"/>
-                <Button onClick={this.savePerson}>Add</Button>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="personName">Name</label>
+                        <input type="text" className="form-control-plaintext" id="personNameTxt"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="personContact">Contact</label>
+                        <input type="text" className="form-control" id="personContactTxt"/>
+                    </div>
+                    <button type="submit" className="btn btn-primary mb-2" onClick={this.savePerson}>Add</button>
+                </form>
             </div>
         )
     }

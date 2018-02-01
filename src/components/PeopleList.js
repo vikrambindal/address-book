@@ -6,13 +6,8 @@ var PersonStore = require('../stores/personStore');
 class PeopleList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      persons: [
-        { id: 1, name: "Chander Bing" },
-        { id: 2, name: "Ross Gellar" },
-        { id: 3, name: "Tyrion Lanister" },
-      ],
-    };
+    console.log("Constructor");
+    this.state = {};
 
     this._onChange = this._onChange.bind(this);
   }
@@ -20,6 +15,12 @@ class PeopleList extends React.Component {
   componentWillMount() {
     console.log("PeopleList: componentWillMount");
     PersonStore.addChangeListener(this._onChange);
+    this.setState({persons: PersonStore.getAllPeople()});
+  }
+
+  componentWillUnmount() {
+    console.log("PeopleList: componentWillUnmount");
+    PersonStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
@@ -28,32 +29,40 @@ class PeopleList extends React.Component {
   }
 
   render() {
+
+    var contentDisplay = null;
+    if (!this.state.hasOwnProperty('persons') || this.state.persons.length == 0 ){
+        contentDisplay =  <p>You currently do not have any contacts</p>;
+    } else {
+        contentDisplay =  <Table striped bordered condensed hover>
+                            <thead>
+                              <tr>
+                                <th>Contact</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {this.state.persons.map(person => (
+                                <tr>
+                                  <td>{person.contact}</td>
+                                  <td>{person.name}</td>
+                                  <td>
+                                    <ButtonGroup bsSize="small">
+                                      <Button>Delete</Button>
+                                      <Button>Edit</Button>
+                                    </ButtonGroup>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                        </Table>;
+    }  
+
     return (
       <div>
         <h2>List of People</h2>
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.persons.map(person => (
-              <tr>
-                <td>{person.id}</td>
-                <td>{person.name}</td>
-                <td>
-                  <ButtonGroup bsSize="small">
-                    <Button>Delete</Button>
-                    <Button>Edit</Button>
-                  </ButtonGroup>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        {contentDisplay}
       </div>
     );
   }
